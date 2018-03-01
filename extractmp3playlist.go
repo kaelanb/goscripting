@@ -6,7 +6,19 @@ import (
 )
 
 func main(){
-	cmd := exec.Command("youtube-dl", "-x", "--audio-format", "mp3", "--download-archive", "archive.txt", "<your playlist link>")
+	
+	name := "youtube-dl"
+	args := []string{
+		"-x",
+		"--audio-format",
+		"mp3",
+		"--download-archive",
+		"archive.txt",
+		"-o",
+		"%(title)s.%(ext)s",
+		"https://www.youtube.com/playlist?list=<your playlist id>"}
+	
+	cmd := exec.Command(name, args...)
 	cmd.Dir = "/your/music/directory"
 	err := cmd.Run()
 	if err != nil {
